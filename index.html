@@ -1,17 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Little Tigers</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="wb-allow-ai-styles" content="true">
+  <title>Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #FF6B35;
+      --secondary: #000000;
+      --accent: #FFFFFF;
+      --background: #ffffff;
+      --text: #333333;
+      --font-heading: 'Inter', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--background); color: var(--text); line-height: 1.7; }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+    p { margin-bottom: 1rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section, .section { padding: 5rem 2rem; }
+    img { max-width: 100%; height: auto; }
+    a { color: var(--primary); text-decoration: none; transition: all 0.3s ease; }
+    button, .btn { display: inline-block; background: var(--primary); color: white; border: none; padding: 0.875rem 2rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+    button:hover, .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .hero { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 6rem 2rem; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+    /* Dynamic component styles */
+    .dynamic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem; }
+    .dynamic-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .no-data { text-align: center; padding: 2rem; color: #6b7280; }
+    /* Grid variations */
+    .grid--3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .grid--2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+    .grid--4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    /* Section utilities */
+    .section__title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .section__text { font-size: 1.125rem; color: #6b7280; max-width: 600px; margin: 0 auto 2rem; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 2rem; }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
+    .btn-primary { background: var(--primary); color: white; }
+    /* Stagger animations */
+    .stagger > *:nth-child(1) { animation-delay: 0.1s; }
+    .stagger > *:nth-child(2) { animation-delay: 0.2s; }
+    .stagger > *:nth-child(3) { animation-delay: 0.3s; }
+    .stagger > *:nth-child(4) { animation-delay: 0.4s; }
+    .stagger > *:nth-child(5) { animation-delay: 0.5s; }
+    .stagger > *:nth-child(6) { animation-delay: 0.6s; }
+    /* Navbar styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar-brand {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      padding: 0.5rem 1rem;
+      color: var(--text);
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .navbar-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .navbar-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+    /* Offset body content for fixed navbar */
+    body {
+      padding-top: 72px;
+    }
+    /* Mobile navbar */
+    @media (max-width: 768px) {
+      .navbar-toggle {
+        display: flex;
+      }
+      .navbar-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      .navbar-nav.show {
+        display: flex;
+      }
+      .nav-link {
+        width: 100%;
+        padding: 0.75rem 1rem;
+      }
+    }
     
-    <!-- Animate.css for beautiful animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
+    /* Collected styles from AI-generated content */
+    
         /* ========================================
            CSS Variables (Vite-style theming)
            ======================================== */
@@ -766,12 +902,353 @@
             .stats { gap: 2rem; }
             .process { flex-direction: column; align-items: center; }
         }
-    </style>
+    
+
+      /* Dynamic component container */
+      [data-component] {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        min-height: 200px;
+        transition: opacity 0.3s ease;
+      }
+
+      [data-component].loading {
+        opacity: 0.6;
+      }
+
+      [data-component].loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border: 3px solid var(--color-border, #e5e7eb);
+        border-top-color: var(--color-primary, #3b82f6);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Dynamic cards */
+      .dynamic-card {
+        background: var(--color-surface, #fff);
+        border-radius: var(--radius-md, 16px);
+        overflow: hidden;
+        box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .dynamic-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg, 0 10px 40px rgb(0 0 0 / 0.08));
+      }
+
+      .dynamic-card .card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .dynamic-card .card-content {
+        padding: 1.25rem;
+      }
+
+      .dynamic-card .card-date,
+      .dynamic-card .card-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-primary, #3b82f6);
+        margin-bottom: 0.5rem;
+      }
+
+      .dynamic-card .card-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--color-text, #1f2937);
+      }
+
+      .dynamic-card .card-description {
+        font-size: 0.875rem;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .dynamic-card .card-location,
+      .dynamic-card .card-schedule,
+      .dynamic-card .card-instructor,
+      .dynamic-card .card-duration {
+        display: block;
+        font-size: 0.8125rem;
+        color: var(--color-text-muted, #6b7280);
+        margin-bottom: 0.5rem;
+      }
+
+      .dynamic-card .card-price {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--color-text, #1f2937);
+        margin: 0.75rem 0;
+      }
+
+      .dynamic-card .card-price .price-period {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--color-text-muted, #6b7280);
+      }
+
+      .dynamic-card .card-features {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        font-size: 0.875rem;
+      }
+
+      .dynamic-card .card-features li {
+        padding: 0.25rem 0;
+        color: var(--color-text-muted, #6b7280);
+      }
+
+      .dynamic-card .card-btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: var(--color-primary, #3b82f6);
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: var(--radius-sm, 8px);
+        text-align: center;
+        transition: background 0.2s ease, transform 0.2s ease;
+        margin-top: 0.5rem;
+      }
+
+      .dynamic-card .card-btn:hover {
+        background: var(--color-secondary, #2563eb);
+        transform: translateY(-2px);
+      }
+
+      /* Membership featured card */
+      .membership-card.featured {
+        border: 2px solid var(--color-primary, #3b82f6);
+        transform: scale(1.02);
+      }
+
+      /* No data / Error states */
+      .no-data, .error {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 2rem;
+        color: var(--color-text-muted, #6b7280);
+      }
+
+      .error {
+        color: #ef4444;
+      }
+
+      /* ========================================
+         RESPONSIVE STYLES - Mobile First
+         ======================================== */
+
+      /* Events grid responsive */
+      .events-grid {
+        width: 100%;
+      }
+
+      /* Filter bar responsive */
+      .events-filter-bar {
+        width: 100%;
+      }
+
+      /* Tablet (768px and below) */
+      @media (max-width: 768px) {
+        /* Dynamic component grids */
+        [data-component] {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 1rem;
+        }
+
+        .events-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 1rem;
+        }
+
+        /* Filter bar stacks */
+        .events-filter-bar {
+          flex-direction: column;
+          align-items: stretch !important;
+        }
+
+        .events-filter-bar > div {
+          width: 100%;
+        }
+
+        .events-filter-bar select {
+          width: 100%;
+          min-width: unset !important;
+        }
+
+        /* Tabs responsive */
+        .events-tabs {
+          width: 100%;
+          justify-content: center;
+        }
+
+        /* Card adjustments */
+        .dynamic-card .card-content {
+          padding: 1rem;
+        }
+
+        .dynamic-card .card-title {
+          font-size: 1rem;
+        }
+
+        .dynamic-card .card-image,
+        .event-card img {
+          height: 160px;
+        }
+
+        /* Sports cards */
+        .sports-card {
+          min-width: unset !important;
+        }
+      }
+
+      /* Mobile (480px and below) */
+      @media (max-width: 480px) {
+        /* Single column on mobile */
+        [data-component] {
+          grid-template-columns: 1fr !important;
+          gap: 1rem;
+        }
+
+        .events-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1rem;
+        }
+
+        /* Full width header elements */
+        .events-header {
+          padding: 0;
+        }
+
+        .events-tabs {
+          width: 100%;
+        }
+
+        .events-tabs button {
+          flex: 1;
+          padding: 0.75rem 0.5rem !important;
+          font-size: 0.8rem !important;
+        }
+
+        /* Card content adjustments */
+        .dynamic-card {
+          border-radius: 12px;
+        }
+
+        .dynamic-card .card-content {
+          padding: 0.875rem;
+        }
+
+        .dynamic-card .card-title {
+          font-size: 0.9375rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .dynamic-card .card-description {
+          font-size: 0.8125rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .dynamic-card .card-btn {
+          width: 100%;
+          padding: 0.625rem 1rem;
+          font-size: 0.8125rem;
+        }
+
+        /* Event card specific */
+        .event-card > div:first-child {
+          height: 180px !important;
+        }
+
+        .event-card .card-content p {
+          font-size: 0.8125rem !important;
+        }
+
+        /* Days left badge */
+        .event-card span[style*="position: absolute"][style*="top: 12px"] {
+          font-size: 0.6rem !important;
+          padding: 4px 8px !important;
+        }
+
+        /* Date range overlay */
+        .event-card div[style*="position: absolute"][style*="bottom: 0"] {
+          padding: 1.5rem 0.75rem 0.75rem !important;
+        }
+
+        .event-card div[style*="position: absolute"][style*="bottom: 0"] > div {
+          font-size: 1rem !important;
+        }
+
+        /* Sports subcategory cards */
+        .sports-card > div:first-child {
+          height: 120px !important;
+        }
+
+        .sports-card h4 {
+          font-size: 0.875rem !important;
+        }
+
+        /* Filter selects */
+        .events-filter {
+          font-size: 0.8125rem !important;
+          padding: 0.625rem 0.75rem !important;
+        }
+
+        /* Filter labels */
+        .events-filter-bar label {
+          font-size: 0.6875rem !important;
+        }
+      }
+
+      /* Very small screens (360px and below) */
+      @media (max-width: 360px) {
+        .dynamic-card .card-title {
+          font-size: 0.875rem;
+        }
+
+        .events-tabs button {
+          font-size: 0.75rem !important;
+          padding: 0.5rem 0.25rem !important;
+        }
+
+        .event-card > div:first-child {
+          height: 150px !important;
+        }
+      }
+    
+  </style>
 </head>
-<body><div class="nav-overlay" id="navOverlay"></div>
-<nav class="navbar">
-        <div class="logo">Little Tigers</div>
-        <div class="nav-links" id="navLinks"><a href="index.html" class="nav-link active">Home</a>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">Little Tigers</a>
+    <button class="navbar-toggle" onclick="this.nextElementSibling.classList.toggle('show')" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="navbar-nav">
+      <a href="index.html" class="nav-link active">Home</a>
             <a href="about.html" class="nav-link ">About</a>
             <a href="services.html" class="nav-link ">Services</a>
             <a href="contact.html" class="nav-link ">Contact</a>
@@ -782,11 +1259,9 @@
             <a href="faqs.html" class="nav-link ">FAQs</a>
             <a href="why-choose-us.html" class="nav-link ">Why Choose Us</a>
             <a href="terms-of-service.html" class="nav-link ">Terms of Service</a>
-            <a href="privacy-policy.html" class="nav-link ">Privacy Policy</a></div>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
-            <span></span>
-        </button>
-    </nav>
+            <a href="privacy-policy.html" class="nav-link ">Privacy Policy</a>
+    </div>
+  </nav>
 <section class="hero hero--gradient section--blur-blob has-gradient-bg" data-section-type="hero">
   <div class="container text-center">
     <div class="hero__badge" data-animate="fadeIn">
@@ -810,6 +1285,7 @@
   <div class="hero__float hero__float--1">🥋</div>
   <div class="hero__float hero__float--2">⭐</div>
 </section>
+
 <section class="section section--lg section--mesh" data-section-type="features">
   <div class="container">
     <div class="text-center mb-16" data-animate="fadeInUp">
@@ -836,6 +1312,7 @@
     </div>
   </div>
 </section>
+
 <section class="section section--lg section--decorated" data-section-type="about-preview">
   <div class="container">
     <div class="feature-showcase">
@@ -857,6 +1334,7 @@
     </div>
   </div>
 </section>
+
 <section class="section section--lg section--decorated" data-section-type="testimonials">
   <div class="container">
     <div class="text-center mb-16" data-animate="fadeInUp">
@@ -901,6 +1379,7 @@
     </div>
   </div>
 </section>
+
 <section class="section section--dark section--lg" data-section-type="stats">
   <div class="container">
     <div class="text-center mb-12" data-animate="fadeInUp">
@@ -927,6 +1406,7 @@
     </div>
   </div>
 </section>
+
 <section class="section section--xl" style="background: var(--gradient-primary);" data-section-type="cta">
   <div class="container text-center">
     <div class="card--glass-dark">
@@ -946,6 +1426,7 @@
     </div>
   </div>
 </section>
+
 <footer class="section section--dark">
   <div class="container">
     <div class="footer__grid">
@@ -1003,5 +1484,6 @@
       </div>
     </div>
   </div>
-</footer></body>
+</footer>
+</body>
 </html>
